@@ -75,6 +75,7 @@ class _IndexState extends State<IndexScreen> {
   }
 
   void _declareDog() {
+    // Rediriger vers la page de déclaration si authentifié, sinon vers la page de connexion
     if (_user != null) {
       Navigator.pushNamed(context, '/declare');
     } else {
