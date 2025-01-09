@@ -16,6 +16,8 @@ _$DeclaredDogImpl _$$DeclaredDogImplFromJson(Map<String, dynamic> json) =>
       notVisibleCount: json['notVisibleCount'] as num,
       visibleCount: json['visibleCount'] as num,
       userId: json['userId'] as String,
+      description: json['description'] as String?,
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$$DeclaredDogImplToJson(_$DeclaredDogImpl instance) =>
@@ -28,6 +30,8 @@ Map<String, dynamic> _$$DeclaredDogImplToJson(_$DeclaredDogImpl instance) =>
       'notVisibleCount': instance.notVisibleCount,
       'visibleCount': instance.visibleCount,
       'userId': instance.userId,
+      'description': instance.description,
+      'imageUrl': instance.imageUrl,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

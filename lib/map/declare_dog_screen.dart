@@ -13,6 +13,7 @@ class DeclareDogScreen extends StatefulWidget {
 class _DeclareDogState extends State<DeclareDogScreen> {
   LatLng _currentPosition = const LatLng(51.5, -0.09);
   final User? _user = FirebaseAuth.instance.currentUser;
+  final TextEditingController _descriptionController = TextEditingController();
 
   void _declareDog() async {
     final db = FirebaseFirestore.instance;
@@ -25,6 +26,7 @@ class _DeclareDogState extends State<DeclareDogScreen> {
       notVisibleCount: 0,
       visibleCount: 0,
       userId: _user!.uid,
+      description: _descriptionController.text,
     );
 
     db.collection("declared_dogs").add({
@@ -62,9 +64,18 @@ class _DeclareDogState extends State<DeclareDogScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child:
+                TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Description'),
+                ),
+            ),
+
             ElevatedButton(
               onPressed: _declareDog,
-              child: Text('Déclarer un chien sur ma position'),
+              child: const Text('Déclarer un chien sur ma position'),
             ),
           ],
         ),

@@ -13,6 +13,8 @@ class DeclaredDog with _$DeclaredDog {
     required num notVisibleCount, // Incrément à chaque fois qu'un chien est déclaré non visible
     required num visibleCount, // Incrément à chaque fois qu'un chien est déclaré visible
     required String userId,
+    String? description,
+    String? imageUrl,
   }) = _DeclaredDog;
 
   factory DeclaredDog.fromJson(Map<String, dynamic> json) =>

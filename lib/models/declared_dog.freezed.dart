@@ -30,6 +30,8 @@ mixin _$DeclaredDog {
   num get visibleCount =>
       throw _privateConstructorUsedError; // Incrément à chaque fois qu'un chien est déclaré visible
   String get userId => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   /// Serializes this DeclaredDog to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +56,9 @@ abstract class $DeclaredDogCopyWith<$Res> {
       @TimestampConverter() Timestamp? createdAt,
       num notVisibleCount,
       num visibleCount,
-      String userId});
+      String userId,
+      String? description,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -79,6 +83,8 @@ class _$DeclaredDogCopyWithImpl<$Res, $Val extends DeclaredDog>
     Object? notVisibleCount = null,
     Object? visibleCount = null,
     Object? userId = null,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -109,6 +115,14 @@ class _$DeclaredDogCopyWithImpl<$Res, $Val extends DeclaredDog>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -128,7 +142,9 @@ abstract class _$$DeclaredDogImplCopyWith<$Res>
       @TimestampConverter() Timestamp? createdAt,
       num notVisibleCount,
       num visibleCount,
-      String userId});
+      String userId,
+      String? description,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -151,6 +167,8 @@ class __$$DeclaredDogImplCopyWithImpl<$Res>
     Object? notVisibleCount = null,
     Object? visibleCount = null,
     Object? userId = null,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_$DeclaredDogImpl(
       id: freezed == id
@@ -181,6 +199,14 @@ class __$$DeclaredDogImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -195,7 +221,9 @@ class _$DeclaredDogImpl implements _DeclaredDog {
       @TimestampConverter() this.createdAt,
       required this.notVisibleCount,
       required this.visibleCount,
-      required this.userId});
+      required this.userId,
+      this.description,
+      this.imageUrl});
 
   factory _$DeclaredDogImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeclaredDogImplFromJson(json);
@@ -217,10 +245,14 @@ class _$DeclaredDogImpl implements _DeclaredDog {
 // Incrément à chaque fois qu'un chien est déclaré visible
   @override
   final String userId;
+  @override
+  final String? description;
+  @override
+  final String? imageUrl;
 
   @override
   String toString() {
-    return 'DeclaredDog(id: $id, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, notVisibleCount: $notVisibleCount, visibleCount: $visibleCount, userId: $userId)';
+    return 'DeclaredDog(id: $id, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, notVisibleCount: $notVisibleCount, visibleCount: $visibleCount, userId: $userId, description: $description, imageUrl: $imageUrl)';
   }
 
   @override
@@ -239,13 +271,17 @@ class _$DeclaredDogImpl implements _DeclaredDog {
                 other.notVisibleCount == notVisibleCount) &&
             (identical(other.visibleCount, visibleCount) ||
                 other.visibleCount == visibleCount) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, latitude, longitude,
-      createdAt, notVisibleCount, visibleCount, userId);
+      createdAt, notVisibleCount, visibleCount, userId, description, imageUrl);
 
   /// Create a copy of DeclaredDog
   /// with the given fields replaced by the non-null parameter values.
@@ -271,7 +307,9 @@ abstract class _DeclaredDog implements DeclaredDog {
       @TimestampConverter() final Timestamp? createdAt,
       required final num notVisibleCount,
       required final num visibleCount,
-      required final String userId}) = _$DeclaredDogImpl;
+      required final String userId,
+      final String? description,
+      final String? imageUrl}) = _$DeclaredDogImpl;
 
   factory _DeclaredDog.fromJson(Map<String, dynamic> json) =
       _$DeclaredDogImpl.fromJson;
@@ -291,6 +329,10 @@ abstract class _DeclaredDog implements DeclaredDog {
   num get visibleCount; // Incrément à chaque fois qu'un chien est déclaré visible
   @override
   String get userId;
+  @override
+  String? get description;
+  @override
+  String? get imageUrl;
 
   /// Create a copy of DeclaredDog
   /// with the given fields replaced by the non-null parameter values.

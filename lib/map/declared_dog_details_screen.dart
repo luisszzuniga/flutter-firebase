@@ -59,6 +59,9 @@ class _DeclaredDogDetailsState extends State<DeclaredDogDetailsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            if (widget.dog.description != null)
+              Text('Description ${widget.dog.description}'),
+
             if (_hasVoted == false)
               ElevatedButton(
                 onPressed: _dogStillAtLocation,
