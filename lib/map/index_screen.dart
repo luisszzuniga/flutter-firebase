@@ -194,6 +194,8 @@ class _IndexState extends State<IndexScreen> {
               ],
             ),
           ),
+
+          // Déconnexion (si auth)
           if (_user != null) ...[
             Text('Connecté en tant que ${_user!.email}'),
             ElevatedButton(
@@ -203,6 +205,8 @@ class _IndexState extends State<IndexScreen> {
           ],
         ],
       ),
+
+      // Bouton pour déclarer un chien
       floatingActionButton: FloatingActionButton(
         onPressed: _declareDog,
         tooltip: 'Déclarer un chien',

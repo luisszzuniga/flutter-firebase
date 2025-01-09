@@ -35,24 +35,28 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pushNamed(context, '/register');
   }
 
+  _passwordReset() {
+    Navigator.pushNamed(context, '/passwordReset');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Connexion')),
+      appBar: AppBar(title: const Text('Connexion')),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
             ),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             if (_errorMessage != null)
               Text(
@@ -64,11 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
             ElevatedButton(
               onPressed: _login,
-              child: Text('Se connecter'),
+              child: const Text('Se connecter'),
             ),
             ElevatedButton(
               onPressed: _register,
-              child: Text('Inscription'),
+              child: const Text('Inscription'),
+            ),
+            ElevatedButton(
+              onPressed: _passwordReset,
+              child: const Text('Mot de passe oublié'),
             ),
           ],
         ),

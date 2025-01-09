@@ -41,6 +41,11 @@ class _DeclaredDogDetailsState extends State<DeclaredDogDetailsScreen> {
   }
 
   void _deleteDog() {
+    // Sécurité: seul le propriétaire du chien peut supprimer le chien
+    if (_user == null || _user.uid != widget.dog.userId) {
+      return;
+    }
+
     final db = FirebaseFirestore.instance;
 
     db.collection("declared_dogs").doc(widget.dog.id).delete();
@@ -60,8 +65,10 @@ class _DeclaredDogDetailsState extends State<DeclaredDogDetailsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             if (widget.dog.description != null)
+              // Description du chien déclaré
               Text('Description ${widget.dog.description}'),
 
+            // Les boutons de vote ne sont visibles uniquement si on n'a pas encore voté
             if (_hasVoted == false)
               ElevatedButton(
                 onPressed: _dogStillAtLocation,
@@ -73,6 +80,7 @@ class _DeclaredDogDetailsState extends State<DeclaredDogDetailsScreen> {
                 child: const Text('Le chien est parti'),
               ),
 
+            // Si l'utilisateur est connecté et est le propriétaire du chien, on affiche le bouton de suppression
             if (_user != null && _user.uid == widget.dog.userId)
               ElevatedButton(
                 onPressed: _deleteDog,
