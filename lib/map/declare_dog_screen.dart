@@ -1,23 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
+import '../models/declared_dog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:latlong2/latlong.dart';
 
 class DeclareDogScreen extends StatefulWidget {
   @override
-  State<DeclareDogScreen> createState() => _IndexState();
+  State<DeclareDogScreen> createState() => _DeclareDogState();
 }
 
-class _IndexState extends State<DeclareDogScreen> {
-  void _declareDog() {
-    final user = FirebaseAuth.instance.currentUser;
-    
-    // Si l'utilisateur est connecté, redirection vers la page de déclaration
-    // Sinon, redirection vers la page de connexion
+class _DeclareDogState extends State<DeclareDogScreen> {
+  LatLng _currentPosition = const LatLng(51.5, -0.09);
+  final User? _user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      Navigator.pushNamed(context, '/declare');
-    } else {
-      Navigator.pushNamed(context, '/login');
+  void _declareDog() async {
+    final db = FirebaseFirestore.instance;
+
+    await _getCurrentLocation();
+
+    final declaredDog = DeclaredDog(
+      latitude: _currentPosition.latitude,
+      longitude: _currentPosition.longitude,
+      notVisibleCount: 0,
+      visibleCount: 0,
+      userId: _user!.uid,
+    );
+
+    db.collection("declared_dogs").add({
+      ...declaredDog.toJson(),
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+
+    Navigator.of(context).pop();
+  }
+
+  Future<void> _getCurrentLocation() async {
+    // Vérifier et demander la permission de localisation
+    LocationPermission permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      return;
     }
+
+    // Obtenir la position actuelle
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _currentPosition = LatLng(position.latitude, position.longitude);
+    });
   }
 
   @override
@@ -31,20 +62,12 @@ class _IndexState extends State<DeclareDogScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              'tesst',
-              style: Theme.of(context).textTheme.headlineMedium,
+            ElevatedButton(
+              onPressed: _declareDog,
+              child: Text('Déclarer un chien sur ma position'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _declareDog,
-        tooltip: 'Déclarer un chien',
-        child: const Icon(Icons.add),
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'map/index_screen.dart';
 import 'map/declare_dog_screen.dart';
+import 'map/declared_dog_details_screen.dart';
 import 'auth/login_screen.dart';
 import 'auth/register_screen.dart';
+import 'models/declared_dog.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -29,6 +31,17 @@ class _AppState extends State<App> {
       ),
       home: IndexScreen(),
       routes: routes,
+      onGenerateRoute: (settings) {
+        // Gérer les routes avec paramètres
+        if (settings.name == '/dogDetails') {
+          final dog = settings.arguments as DeclaredDog;
+          return MaterialPageRoute(
+            builder: (context) => DeclaredDogDetailsScreen(dog: dog),
+          );
+        }
+        // Retourner null pour les routes non définies
+        return null;
+      },
     );
   }
 }
